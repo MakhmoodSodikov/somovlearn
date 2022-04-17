@@ -76,7 +76,7 @@ pipe.train(features_train=x_train,
 Your training process will be visualised in real-time:
 
 
-![Training](images/visualization.png)
+![Training](images/Accuracy-Rate-of-MLP-visualized-the-graph-of-training-loss-and-the-validation-loss_Q640.jpg)
 
 <a name="fast"></a>
 ## Why fast?
