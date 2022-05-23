@@ -14,8 +14,6 @@ class BatchNorm(BaseLayerTrainable):
         input_size = 0
         super().__init__(input_size, output_size, l1_regularization, l2_regularization)
         self.weights = np.array([1, 0])
-        # self.running_mean: np.array = np.zeros(input_size)
-        # self.running_covariance: np.array = np.zeros(input_size)
         self.running_mean = 1
         self.running_covariance = 0
         self._first_run = True
