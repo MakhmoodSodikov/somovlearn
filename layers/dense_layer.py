@@ -29,7 +29,7 @@ class DenseLayer(BaseLayerTrainable):
             return np.dot(x, self.weights) + self.bias
 
     def _set_local_gradient(self, x: np.array) -> np.array:
-        self.local_gradient_value =
+        self.local_gradient_value = 0
 
     def backward(self, dx: np.array) -> np.array:
         pass

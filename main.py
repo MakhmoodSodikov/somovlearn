@@ -7,8 +7,7 @@ def activations():
          [1.0, 4.0, -2.5, 3.0]],
 
          [[-1.0, 1.0, 2.0, 3.0],
-          [1.0, 4.0, -2.5, 3.0]],
-         ]
+          [1.0, 4.0, -2.5, 3.0]]]
 
     print('Original X =', x)
 
@@ -66,7 +65,8 @@ def batchnorm():
 def denselayer():
     pass
 
+
 # activations()
 # dropout()
 # batchnorm()
-denselayer()
+# denselayer()
