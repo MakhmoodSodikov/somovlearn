@@ -17,8 +17,8 @@ class Tanh(BaseActivation):
         return np.tanh(x)
 
     @smart_cast
-    def backward(self, x: np.array) -> np.array:
-        return self.get_local_gradient()
+    def backward(self, dx: np.array) -> np.array:
+        return np.multiply(dx, self.get_local_gradient())
 
     def _set_local_gradient(self, x: np.array) -> np.array:
         gradient_value: np.array
