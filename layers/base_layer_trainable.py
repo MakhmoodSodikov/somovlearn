@@ -1,12 +1,9 @@
 from abc import ABC, abstractmethod
 from base_abstract.base_somov_unit import BaseSomovUnit
-from typing import Union, Iterable, Tuple
+from typing import Union, Iterable
 
 
 class BaseLayerTrainable(BaseSomovUnit, ABC):
-    # Internal variables
-    local_gradient: Union[Iterable] = None
-
     # External hyperparameters
     _eval: bool = False
     _l1_regularization: bool = False
@@ -29,11 +26,8 @@ class BaseLayerTrainable(BaseSomovUnit, ABC):
         self._l2_regularization = l2_regularization
 
     @abstractmethod
-    def _set_local_gradient(self, x: Union[Iterable]) -> Union[float, Iterable]:
+    def _set_weight_gradients(self, dx: Union[Iterable]) -> Union[float, Iterable]:
         raise NotImplementedError
-
-    def get_local_gradient(self) -> Union[Iterable]:
-        return self._local_gradient_value
 
     def eval(self, flag: bool = True) -> bool:
         self._eval = flag

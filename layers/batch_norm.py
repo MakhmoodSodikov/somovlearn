@@ -25,7 +25,6 @@ class BatchNorm(BaseLayerTrainable):
         self._sqrt_var: np.array = np.array([])
         self._ivar: np.array = np.array([])
 
-
     @smart_cast
     def forward(self, x: np.array) -> np.array:
         self._input_size = x.shape[:-1]
@@ -40,6 +39,7 @@ class BatchNorm(BaseLayerTrainable):
             if self._first_run:
                 self.running_mean = mean
                 self.running_covariance = self._covariance
+                self._first_run = False
 
             self.running_mean = (mean.mean() + self.running_mean) / 2
             self.running_covariance = (self._covariance.mean() + self.running_covariance) / 2
@@ -54,44 +54,23 @@ class BatchNorm(BaseLayerTrainable):
 
     @smart_cast
     def backward(self, dx: Union[float, Iterable]) -> Union[float, Iterable]:
-        self._set_local_gradient(dx)
-        return self._set_local_gradient(dx)
+        return self._set_weight_gradients(dx)
 
-    def _set_local_gradient(self, dx: np.array) -> np.array:
-        # get the dimensions of the input/output
+    def _set_weight_gradients(self, dx: np.array) -> np.array:
         N = dx.shape[-1]
-        # step9
         dbeta = np.sum(dx, axis=0)
-        dgammax = dx  # not necessary, but more understandable
-
-        # step8
+        dgammax = dx
         dgamma = np.sum(dgammax * self._normalized_x, axis=0)
         dxhat = dgammax * self.weights[0]
-
-        # step7
         divar = np.sum(dxhat * self._xmu, axis=0)
         dxmu1 = dxhat * self._ivar
-
-        # step6
         dsqrtvar = -1. / (self._sqrt_var ** 2) * divar
-
-        # step5
         dvar = 0.5 * 1. / np.sqrt(self._covariance + self._eps) * dsqrtvar
-
-        # step4
         dsq = 1. / N * dvar
-
-        # step3
         dxmu2 = 2 * self._xmu * dsq
-
-        # step2
         dx1 = (dxmu1 + dxmu2)
         dmu = -1 * np.sum(dxmu1 + dxmu2, axis=0)
-
-        # step1
         dx2 = 1. / N * dmu
+        dx_out = dx1 + dx2
 
-        # step0
-        dx = dx1 + dx2
-
-        return dx, dgamma.mean(), dbeta.mean()
+        return dx_out, dgamma.mean(), dbeta.mean()
