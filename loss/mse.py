@@ -1,5 +1,5 @@
 import numpy as np
-from base import BaseLoss
+from .base import BaseLoss
 
 
 class MSELoss(BaseLoss):
