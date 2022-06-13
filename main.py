@@ -1,5 +1,6 @@
 from activations import ReLU, Tanh, Sigmoid
 from layers import Dropout, BatchNorm, DenseLayer
+from pipeline import Pipeline
 
 
 def activations():
@@ -52,7 +53,7 @@ def batchnorm():
          [3.0, 3.0, 3.0]]
 
     bn = BatchNorm()
-
+    print('BatchNorm weights: ', bn.weights)
     print('BatchNorm forward: ', bn.forward(x))
     bn.eval(True)
     print('BatchNorm forward eval: ', bn.forward(x))
@@ -66,7 +67,13 @@ def denselayer():
     pass
 
 
+def layers():
+    pipe = Pipeline()
+    pipe.add()
+
+
 # activations()
 # dropout()
-# batchnorm()
+batchnorm()
 # denselayer()
+
