@@ -16,5 +16,4 @@ def smart_cast(method: Callable):
     def smart_cast_wrapper(self, x: np.array):
         x = _numpy_array_caster.to_origin(x)
         return method(self, x)
-
     return smart_cast_wrapper
