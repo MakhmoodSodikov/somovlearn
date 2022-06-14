@@ -77,6 +77,7 @@ Your training process will be visualised in real-time:
 
 
 ![Training](images/train.png)
+![Training](images/training.png)
 
 <a name="fast"></a>
 ## Why fast?
