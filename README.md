@@ -76,7 +76,7 @@ pipe.train(features_train=x_train,
 Your training process will be visualised in real-time:
 
 
-![Training](images/train.png)
+
 ![Training](images/training.jpg)
 
 <a name="fast"></a>
